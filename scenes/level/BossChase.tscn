@@ -1,0 +1,165 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://audio/portal.ogg" type="AudioStream" id=2]
+[ext_resource path="res://scenes/Goal.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Crimeslime.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/camera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/BossChase.gd" type="Script" id=7]
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 7, 7 )
+
+[sub_resource type="Animation" id=13]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Crimeslime:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "cutscene"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/path = NodePath("Player")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "set_input_enabled"
+}, {
+"args": [ true ],
+"method": "set_input_enabled"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Camera2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "glitch"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Crimeslime:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 2 )
+} ],
+"times": PoolRealArray( 1 )
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "start"
+} ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "skip"
+length = 0.001
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "start"
+} ]
+}
+
+[node name="BossChase" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="Camera2D" parent="." instance=ExtResource( 6 )]
+
+[node name="TileMap" type="TileMap" parent="." groups=["world"]]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 65536, 0, 0, 65545, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131081, 0, 0, 196608, 0, 0, 196615, 0, 0, 196617, 0, 0, 262144, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262151, 0, 0, 262153, 0, 0, 327680, 0, 0, 327682, 0, 0, 327684, 0, 0, 327685, 0, 0, 327687, 0, 0, 327689, 0, 0, 393216, 0, 0, 393218, 0, 0, 393223, 0, 0, 393225, 0, 0, 458752, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458761, 0, 0, 524288, 0, 0, 524297, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0 )
+
+[node name="Trigger" type="Area2D" parent="." groups=["trigger"]]
+position = Vector2( 128, 16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+position = Vector2( 8, 8 )
+shape = SubResource( 10 )
+
+[node name="Goal" parent="." instance=ExtResource( 3 )]
+position = Vector2( 48, 80 )
+
+[node name="Crimeslime" parent="." instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 16, 16 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 32, 16 )
+
+[node name="Cutscene" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 13 )
+anims/cutscene = SubResource( 12 )
+anims/skip = SubResource( 14 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="Trigger" to="." method="_on_Trigger_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

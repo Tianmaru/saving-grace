@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/wush.ogg-cef3821d79fe57ebfa7392e46bb10662.oggstr"
+
+[deps]
+
+source_file="res://audio/wush.ogg"
+dest_files=[ "res://.import/wush.ogg-cef3821d79fe57ebfa7392e46bb10662.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

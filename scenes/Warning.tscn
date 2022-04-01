@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://fonts/pres_start.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/PrStart.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://sprites/blobby3.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 4
+font_data = ExtResource( 2 )
+
+[node name="Warning" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Control" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+margin_right = 144.0
+margin_bottom = 108.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]This game uses cookies to save your progress.
+
+Apparently, cookies are disabled in your browser settings.
+
+[color=red]Please enable cookies and restart the game![/color][/center]"
+text = "This game uses cookies to save your progress.
+
+Apparently, cookies are disabled in your browser settings.
+
+Please enable cookies and restart the game!"
+fit_content_height = true
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+margin_top = 112.0
+margin_right = 144.0
+margin_bottom = 128.0
+texture = ExtResource( 3 )
+stretch_mode = 4
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Control"]
+margin_top = 132.0
+margin_right = 144.0
+margin_bottom = 144.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center](Also, remember to clear your browser history from time to time)[/center]"
+text = "(Also, remember to clear your browser history from time to time)"
+fit_content_height = true

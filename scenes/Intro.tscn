@@ -1,0 +1,249 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scripts/Intro.gd" type="Script" id=5]
+[ext_resource path="res://fonts/pres_start.tres" type="DynamicFont" id=6]
+[ext_resource path="res://fonts/PrStart.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=7]
+size = 8
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 4
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 5
+font_data = ExtResource( 7 )
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("PressStartLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "blink"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PressStartLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 0.5, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "reveal_text"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/RichTextLabel:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("VBoxContainer/BlinkAnimation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "blink", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[node name="Intro" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 144.0
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 7 )
+text = "How to Play"
+align = 1
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 12.0
+margin_right = 144.0
+margin_bottom = 52.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_right = 144.0
+margin_bottom = 13.0
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_right = 70.0
+margin_bottom = 13.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.501961, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "WASD
+Arrow Keys"
+align = 2
+valign = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 74.0
+margin_top = 4.0
+margin_right = 144.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 0.501961, 0.501961, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Move"
+valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_top = 17.0
+margin_right = 144.0
+margin_bottom = 22.0
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 70.0
+margin_bottom = 5.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.501961, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Space"
+align = 2
+valign = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 74.0
+margin_right = 144.0
+margin_bottom = 5.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 0.501961, 0.501961, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Save the game"
+valign = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_top = 26.0
+margin_right = 144.0
+margin_bottom = 31.0
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 70.0
+margin_bottom = 5.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.501961, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "R"
+align = 2
+valign = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 74.0
+margin_right = 144.0
+margin_bottom = 5.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 0.501961, 0.501961, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Reload level"
+valign = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_top = 35.0
+margin_right = 144.0
+margin_bottom = 40.0
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer4"]
+margin_right = 70.0
+margin_bottom = 5.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.501961, 0.501961, 1, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Q"
+align = 2
+valign = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 74.0
+margin_right = 144.0
+margin_bottom = 5.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 0.501961, 0.501961, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "Quit to Menu"
+valign = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+margin_top = 56.0
+margin_right = 144.0
+margin_bottom = 134.0
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 6 )
+bbcode_enabled = true
+bbcode_text = "[center]Most importantly,
+[color=red]DON'T TURN IT OFF[/color] while the game is saving![/center]
+
+...did I mention you can turn the game off with Q?"
+text = "Most importantly,
+DON'T TURN IT OFF while the game is saving!
+
+...did I mention you can turn the game off with Q?"
+fit_content_height = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PressStartLabel" type="Label" parent="VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 138.0
+margin_right = 144.0
+margin_bottom = 144.0
+custom_fonts/font = SubResource( 4 )
+text = "press any key to continue"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="BlinkAnimation" type="AnimationPlayer" parent="VBoxContainer"]
+anims/RESET = SubResource( 5 )
+anims/blink = SubResource( 6 )
+
+[node name="TextRevealAnimation" type="AnimationPlayer" parent="."]
+autoplay = "reveal_text"
+anims/reveal_text = SubResource( 2 )

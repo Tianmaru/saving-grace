@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/big_bad_evil_guy.ogg-89c437e5f00f1e25ae3826b540f28b30.oggstr"
+
+[deps]
+
+source_file="res://audio/big_bad_evil_guy.ogg"
+dest_files=[ "res://.import/big_bad_evil_guy.ogg-89c437e5f00f1e25ae3826b540f28b30.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,553 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://scenes/Grace.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Level.gd" type="Script" id=2]
+[ext_resource path="res://scenes/tileset.tres" type="TileSet" id=3]
+[ext_resource path="res://shader/save.shader" type="Shader" id=4]
+[ext_resource path="res://scenes/Goal.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Crimeslime.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/camera.tscn" type="PackedScene" id=8]
+[ext_resource path="res://audio/crimeslime.ogg" type="AudioStream" id=9]
+[ext_resource path="res://scripts/Cutscene.gd" type="Script" id=10]
+[ext_resource path="res://scenes/Block.tscn" type="PackedScene" id=11]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+uniform float progress : hint_range(0.0, 1.0);
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV);
+	if(1.0 - UV.y > progress) {
+		COLOR.rgb = vec3(0.0, 0.0, 0.0);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/progress = 1.0
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/progress = 1.0
+
+[sub_resource type="ShaderMaterial" id=7]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/progress = null
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Crimeslime:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 16, 80 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Grace:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 16, 96 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Block:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 32, 80 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Crimeslime:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Grace:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Player:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 16, 144 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Player:input_enabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "cutscene"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 14, 15, 15.001 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Crimeslime:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 11, 12, 13 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 16, 160 ), Vector2( 16, 80 ), Vector2( 16, 80 ), Vector2( 32, 80 ), Vector2( 32, 80 ), Vector2( 48, 80 ), Vector2( 48, 80 ), Vector2( 64, 80 ), Vector2( 64, 80 ), Vector2( 128, 80 ), Vector2( 128, 16 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Block:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2, 3, 4, 5, 6, 7, 10.9, 11 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 0, 0, 1 ),
+"update": 0,
+"values": [ Vector2( 32, 80 ), Vector2( 32, 80 ), Vector2( 48, 80 ), Vector2( 48, 80 ), Vector2( 64, 80 ), Vector2( 64, 80 ), Vector2( 80, 80 ), Vector2( 80, 80 ), Vector2( 32, 80 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Grace:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 11, 12, 12.25, 13, 13.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 16, 176 ), Vector2( 16, 96 ), Vector2( 16, 96 ), Vector2( 16, 80 ), Vector2( 16, 80 ), Vector2( 32, 80 ), Vector2( 32, 80 ), Vector2( 48, 80 ), Vector2( 48, 80 ), Vector2( 112, 80 ), Vector2( 128, 80 ), Vector2( 128, 32 ), Vector2( 128, 16 ) ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("Grace")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 15.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath("Crimeslime")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 15 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("Camera2D")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 11 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "glitch"
+} ]
+}
+tracks/7/type = "audio"
+tracks/7/path = NodePath("BossMusic")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 9 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Crimeslime:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 13 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Grace:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 13.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/10/type = "method"
+tracks/10/path = NodePath("TileMap")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ Vector2( 1, 9 ), 1, false, false, false, Vector2( 0, 0 ) ],
+"method": "set_cellv"
+}, {
+"args": [ Vector2( 1, 9 ), 0, false, false, false, Vector2( 0, 0 ) ],
+"method": "set_cellv"
+} ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Player:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 14.5, 15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 16, 160 ), Vector2( 16, 160 ), Vector2( 16, 144 ) ]
+}
+tracks/12/type = "method"
+tracks/12/path = NodePath("Player")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 14.5, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "move" ],
+"method": "play_animation"
+}, {
+"args": [ "idle" ],
+"method": "play_animation"
+} ]
+}
+tracks/13/type = "method"
+tracks/13/path = NodePath("Crimeslime")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 11 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [ "move" ],
+"method": "play_animation"
+}, {
+"args": [ "idle" ],
+"method": "play_animation"
+}, {
+"args": [ "move" ],
+"method": "play_animation"
+}, {
+"args": [ "idle" ],
+"method": "play_animation"
+}, {
+"args": [ "move" ],
+"method": "play_animation"
+}, {
+"args": [ "idle" ],
+"method": "play_animation"
+}, {
+"args": [ "move" ],
+"method": "play_animation"
+}, {
+"args": [ "idle" ],
+"method": "play_animation"
+}, {
+"args": [ "move" ],
+"method": "play_animation"
+} ]
+}
+tracks/14/type = "method"
+tracks/14/path = NodePath("Grace")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 5, 6, 7, 11 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [ "move" ],
+"method": "play_animation"
+}, {
+"args": [ "idle" ],
+"method": "play_animation"
+}, {
+"args": [ "move" ],
+"method": "play_animation"
+}, {
+"args": [ "idle" ],
+"method": "play_animation"
+}, {
+"args": [ "move" ],
+"method": "play_animation"
+}, {
+"args": [ "idle" ],
+"method": "play_animation"
+}, {
+"args": [ "move" ],
+"method": "play_animation"
+}, {
+"args": [ "idle" ],
+"method": "play_animation"
+}, {
+"args": [ "move" ],
+"method": "play_animation"
+} ]
+}
+tracks/15/type = "method"
+tracks/15/path = NodePath("Crimeslime")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 7, 7.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "start_saving"
+}, {
+"args": [  ],
+"method": "save"
+} ]
+}
+tracks/16/type = "method"
+tracks/16/path = NodePath("Grace")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 7, 9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "start_saving"
+}, {
+"args": [  ],
+"method": "save"
+} ]
+}
+tracks/17/type = "method"
+tracks/17/path = NodePath("Block")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 7, 11 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "start_saving"
+}, {
+"args": [  ],
+"method": "stop_saving"
+} ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Player:input_enabled")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "skip"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Player:input_enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Grace")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("Crimeslime")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="Level5" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Camera2D" parent="." instance=ExtResource( 8 )]
+
+[node name="TileMap" type="TileMap" parent="." groups=["world"]]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 1, 0, 65545, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 1, 0, 131081, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 1, 0, 196617, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 1, 0, 262153, 0, 0, 327680, 0, 0, 327681, 1, 0, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 0, 0, 393216, 0, 0, 393217, 1, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 458752, 0, 0, 458753, 1, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 524288, 0, 0, 524289, 1, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 589824, 0, 0, 589825, 1, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0 )
+
+[node name="Goal" parent="." instance=ExtResource( 5 )]
+position = Vector2( 128, 16 )
+
+[node name="Block" parent="." instance=ExtResource( 11 )]
+material = SubResource( 3 )
+position = Vector2( 32, 80 )
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+position = Vector2( 16, 144 )
+input_enabled = false
+
+[node name="Grace" parent="." instance=ExtResource( 1 )]
+visible = false
+material = SubResource( 4 )
+position = Vector2( 16, 96 )
+
+[node name="Crimeslime" parent="." instance=ExtResource( 7 )]
+visible = false
+material = SubResource( 7 )
+position = Vector2( 16, 80 )
+
+[node name="BossMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="Cutscene" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 6 )
+anims/cutscene = SubResource( 5 )
+anims/skip = SubResource( 8 )
+script = ExtResource( 10 )

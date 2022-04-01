@@ -1,0 +1,154 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://title_art.png" type="Texture" id=1]
+[ext_resource path="res://fonts/PrStart.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scripts/Main.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=2]
+size = 4
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 4
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 2
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+anchor_left = 0.0292813
+anchor_top = 0.279281
+anchor_right = 0.435531
+anchor_bottom = 0.591781
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Buttons"]
+margin_right = 64.0
+margin_bottom = 5.0
+custom_fonts/font = SubResource( 2 )
+text = "By Tianmaru"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ContinueButton" type="Button" parent="Buttons"]
+margin_top = 9.0
+margin_right = 64.0
+margin_bottom = 20.0
+custom_colors/font_color_focus = Color( 0.501961, 0.501961, 0.501961, 1 )
+custom_colors/font_color = Color( 0.752941, 0.752941, 0.752941, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.25098, 0.25098, 0.25098, 1 )
+custom_fonts/font = SubResource( 1 )
+disabled = true
+text = "Continue"
+
+[node name="StartButton" type="Button" parent="Buttons"]
+margin_top = 24.0
+margin_right = 64.0
+margin_bottom = 35.0
+custom_colors/font_color_focus = Color( 0.501961, 0.501961, 0.501961, 1 )
+custom_colors/font_color = Color( 0.752941, 0.752941, 0.752941, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.25098, 0.25098, 0.25098, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "New Game"
+
+[node name="Warning" type="Label" parent="Buttons"]
+visible = false
+margin_top = 39.0
+margin_right = 65.0
+margin_bottom = 42.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Please enable cookies!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="QuitButton" type="Button" parent="Buttons"]
+margin_top = 39.0
+margin_right = 64.0
+margin_bottom = 50.0
+custom_colors/font_color_focus = Color( 0.501961, 0.501961, 0.501961, 1 )
+custom_colors/font_color = Color( 0.752941, 0.752941, 0.752941, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.25098, 0.25098, 0.25098, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Quit"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/fade_out = SubResource( 5 )
+
+[connection signal="button_down" from="Buttons/ContinueButton" to="." method="_on_ContinueButton_button_down"]
+[connection signal="button_down" from="Buttons/StartButton" to="." method="_on_StartButton_button_down"]
+[connection signal="button_down" from="Buttons/QuitButton" to="." method="_on_QuitButton_button_down"]

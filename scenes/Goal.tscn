@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://sprites/goal.png" type="Texture" id=1]
+[ext_resource path="res://sprites/goal4.png" type="Texture" id=2]
+[ext_resource path="res://sprites/goal3.png" type="Texture" id=3]
+[ext_resource path="res://sprites/goal2.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7, 7 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[node name="Goal" type="Area2D" groups=["goal"]]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 8, 8 )
+shape = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+frame = 2
+playing = true
+centered = false
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 8, 8 )
+amount = 16
+emission_shape = 1
+emission_sphere_radius = 9.0
+gravity = Vector2( 0, -16 )
+color = Color( 0, 0, 0, 1 )

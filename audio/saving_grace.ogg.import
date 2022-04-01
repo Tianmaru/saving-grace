@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/saving_grace.ogg-84ca222f00112e18cdb78558964f6e96.oggstr"
+
+[deps]
+
+source_file="res://audio/saving_grace.ogg"
+dest_files=[ "res://.import/saving_grace.ogg-84ca222f00112e18cdb78558964f6e96.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

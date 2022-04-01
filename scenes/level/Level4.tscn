@@ -1,0 +1,102 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scripts/Level.gd" type="Script" id=1]
+[ext_resource path="res://fonts/pres_start.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scenes/tileset.tres" type="TileSet" id=3]
+[ext_resource path="res://scenes/Goal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Block.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+uniform float progress : hint_range(0.0, 1.0);
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV);
+	if(1.0 - UV.y > progress) {
+		COLOR.rgb = vec3(0.0, 0.0, 0.0);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/progress = 1.0
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/progress = 1.0
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/progress = 1.0
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/progress = 1.0
+
+[sub_resource type="ShaderMaterial" id=7]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/progress = 1.0
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/progress = 1.0
+
+[node name="Level4" type="Node2D"]
+script = ExtResource( 1 )
+song_id = 0
+
+[node name="TileMap" type="TileMap" parent="." groups=["world"]]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 65536, 0, 0, 65541, 0, 0, 65545, 0, 0, 131072, 0, 0, 131077, 0, 0, 131081, 0, 0, 196608, 0, 0, 196610, 0, 0, 196612, 0, 0, 196613, 0, 0, 196617, 0, 0, 262144, 0, 0, 262146, 0, 0, 262149, 0, 0, 262153, 0, 0, 327680, 0, 0, 327682, 0, 0, 327685, 0, 0, 327689, 0, 0, 393216, 0, 0, 393218, 0, 0, 393221, 0, 0, 393222, 0, 0, 393224, 0, 0, 393225, 0, 0, 458752, 0, 0, 458754, 0, 0, 458757, 0, 0, 458758, 0, 0, 458760, 0, 0, 458761, 0, 0, 524288, 0, 0, 524290, 0, 0, 524296, 0, 0, 524297, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0 )
+
+[node name="Goal" parent="." instance=ExtResource( 4 )]
+position = Vector2( 16, 128 )
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+position = Vector2( 112, 32 )
+
+[node name="Block" parent="." instance=ExtResource( 6 )]
+material = SubResource( 3 )
+position = Vector2( 96, 64 )
+
+[node name="Block2" parent="." instance=ExtResource( 6 )]
+material = SubResource( 4 )
+position = Vector2( 112, 64 )
+
+[node name="Block3" parent="." instance=ExtResource( 6 )]
+material = SubResource( 5 )
+position = Vector2( 128, 64 )
+
+[node name="Block4" parent="." instance=ExtResource( 6 )]
+material = SubResource( 6 )
+position = Vector2( 64, 80 )
+
+[node name="Block5" parent="." instance=ExtResource( 6 )]
+material = SubResource( 7 )
+position = Vector2( 48, 96 )
+
+[node name="Block7" parent="." instance=ExtResource( 6 )]
+material = SubResource( 8 )
+position = Vector2( 48, 64 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_right = 160.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 2 )
+text = "Got stuck? Press R!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
